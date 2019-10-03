@@ -33,13 +33,20 @@ int main() {
         else if (numPlayers == 2) {
             cout << "Here is the playing board: " << endl;
             variable.printBoard();
-
+            if (variable.isBoardFull()) {
+                break;
+            }
 
             while (!variable.checkForWin()) {//to cycle between players
                 cout << "Player 1: you are 'x'" << endl;
                 cout << "Enter row and column (0, 1, 2)" << endl;
                 cin >> row;
                 cin >> column;
+                if (!variable.placeMark(row, column)) {
+                    cout << "Please pick a row and column number that are within the bounds. Pick 0, 1, or 2." << endl;
+                    cin >> row;
+                    cin >> column;
+                }
                 variable.placeMark(row, column);
                 variable.printBoard();
                 variable.changePlayer();
@@ -48,19 +55,30 @@ int main() {
                     break;
                 }
 
+                if (variable.isBoardFull()) {
+                    break;
+                }
+
                 cout << "Player 2: you are 'o'" << endl;
                 cout << "Enter row and column (0, 1, 2)" << endl;
                 cin >> row;
                 cin >> column;
+                if (!variable.placeMark(row, column)) {
+                    cout
+                            << "Please pick a row and column number that are within the bounds or that has not yet been chosen. Pick 0, 1, or 2."
+                            << endl;
+                    cin >> row;
+                    cin >> column;
+                }
                 variable.placeMark(row, column);
                 variable.printBoard();
                 variable.changePlayer();
                 if (variable.isBoardFull())
                     break;
-            }
-            if (variable.checkForWin()) {
-                break;
-            }
+             if (variable.checkForWin()) {
+                  break;
+              }
+        }
             if (variable.checkForWin()) {
                 variable.changePlayer(); //since we switch players at the end of the while loop, we must switch back for the winner
                 cout << "You win Player " << variable.getCurrentPlayerNumber() << "!" << endl;
@@ -76,10 +94,17 @@ int main() {
             variable.printBoard();
 
             while (!variable.checkForWin()) {//to cycle between players
+                if (variable.isBoardFull()){
+                    break;}
                 cout << "User's turn: you are 'x'" << endl;
                 cout << "Enter row and column (0, 1, 2)" << endl;
                 cin >> row;
                 cin >> column;
+                if(!variable.placeMark(row, column)){
+                    cout << "Please pick a row and column number that are within the bounds. Pick 0, 1, or 2." << endl;
+                    cin >> row;
+                    cin >> column;
+                }
                 variable.placeMark(row, column);
                 variable.printBoard();
                 variable.changePlayer();
@@ -87,6 +112,9 @@ int main() {
                 if (variable.checkForWin()) {
                     break;
                 }
+
+                if (variable.isBoardFull()){
+                    break;}
 
                 srand (time(NULL));
 
@@ -96,10 +124,8 @@ int main() {
                 variable.placeMark(row, column);
                 variable.printBoard();
                 variable.changePlayer();
-                if (variable.isBoardFull())
-                    break;
             }
-            if (variable.checkForWin()) {
+           if (variable.checkForWin()) {
                 break;
             }
             if (variable.checkForWin()) {

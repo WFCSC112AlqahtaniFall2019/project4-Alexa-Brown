@@ -97,8 +97,6 @@ else if (numPlayers == 1) {
     variable.printBoard();
 
     while (!variable.checkForWin()) {//to cycle between players
-        if (variable.isBoardFull()){
-            break;}
         cout << "Player 1's turn: you are 'x'" << endl;
         cout << "Enter row and column (0, 1, 2)" << endl;
         cin >> row;
@@ -125,11 +123,11 @@ else if (numPlayers == 1) {
         row = rand()% 2 ;
         column = rand()% 2 ;
         cout << row << " " << column << endl;
-        while(!variable.placeMark(row, column)){
+        while(!variable.placeMark(row, column) && !variable.isBoardFull()){
             row = rand()% 3 ;
             column = rand()% 3 ;
         }
-            variable.placeMark(row, column);
+        variable.placeMark(row, column);
         cout << row << " " << column;
 
         variable.printBoard();
@@ -140,7 +138,13 @@ else if (numPlayers == 1) {
         cout << "Player " << variable.getCurrentPlayerNumber() << " wins!" << endl;
         cout << "Do you want to play again? Input 'y' to play again or 'q' to quit." << endl;
         cin >> playAgain;
-     }
+    }
+    if (variable.isBoardFull() && !variable.checkForWin()){
+        cout << "There is a tie!" << endl;
+        cout << "Do you want to play again? Input 'y' to play again or 'q' to quit." << endl;
+        cin >> playAgain;
+    }
+
     } //end of if players = 1
 } //while loop allows the game to go on as long as the user wants it to go on
 

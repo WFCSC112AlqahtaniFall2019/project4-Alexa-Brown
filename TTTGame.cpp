@@ -41,35 +41,42 @@ else if (numPlayers == 2) {
 
     while (!variable.checkForWin()) {//to cycle between players
         cout << "Player 1: you are 'x'" << endl;
-        cout << "Enter row and column (0, 1, 2)" << endl;
-        cin >> row;
-        cin >> column;
+        cout << "Enter row and column (1, 2, or 3)" << endl;
+        cin >> row ;
+        row--;
+        cin >> column ;
+        column--;
         if (!variable.placeMark(row, column)) {
-            cout << "Please pick a row and column number that are within the bounds. Pick 0, 1, or 2." << endl;
+            cout << "Please pick a row and column number that are within the bounds. Pick 1, 2, or 3." << endl;
             cin >> row;
             cin >> column;
+            row--;
+            column--;
         }
         variable.placeMark(row, column);
         variable.printBoard();
         variable.changePlayer();
-        // variable.checkForWin();
         if (variable.checkForWin()) {
             break;
         }
-
         if (variable.isBoardFull()) {
             break;
         }
 
         cout << "Player 2: you are 'o'" << endl;
-        cout << "Enter row and column (0, 1, 2)" << endl;
+        cout << "Enter row and column (1, 2, or 3)" << endl;
         cin >> row;
         cin >> column;
+        row--;
+        column--;
         if (!variable.placeMark(row, column)) {
-            cout<< "Please pick a row and column number that are within the bounds or that has not yet been chosen. Pick 0, 1, or 2."<< endl;
+            cout<< "Please pick a row and column number that are within the bounds or that has not yet been chosen. Pick 1, 2, or 3."<< endl;
             cin >> row;
             cin >> column;
+            row--;
+            column--;
         }
+
         variable.placeMark(row, column);
         variable.printBoard();
         variable.changePlayer();
@@ -98,19 +105,21 @@ else if (numPlayers == 1) {
 
     while (!variable.checkForWin()) {//to cycle between players
         cout << "Player 1's turn: you are 'x'" << endl;
-        cout << "Enter row and column (0, 1, 2)" << endl;
+        cout << "Enter row and column (1, 2, or 3)" << endl;
         cin >> row;
         cin >> column;
+        row--;
+        column--;
         while(!variable.placeMark(row, column)){
-            cout<< "Please pick a row and column number that are within the bounds or that has not yet been chosen. Pick 0, 1, or 2."<< endl;
+            cout<< "Please pick a row and column number that are within the bounds or that has not yet been chosen. Pick 1, 2, or 3."<< endl;
             cin >> row;
             cin >> column;
-
+            row--;
+            column--;
         }
         variable.placeMark(row, column);
         variable.printBoard();
         variable.changePlayer();
-        // variable.checkForWin();
         if (variable.checkForWin()) {
             break;
         }
@@ -121,11 +130,11 @@ else if (numPlayers == 1) {
         //need to figure out how to get the computer to know if there is already something in that spot
         cout << "Player 2's turn: you are 'o'" << endl;
         row = rand()% 2 ;
-        column = rand()% 2 ;
+        column = rand()% 2  ;
         cout << row << " " << column << endl;
         while(!variable.placeMark(row, column) && !variable.isBoardFull()){
-            row = rand()% 3 ;
-            column = rand()% 3 ;
+            row = rand()% 3 + 1 ;
+            column = rand()% 3 + 1 ;
         }
         variable.placeMark(row, column);
         cout << row << " " << column;

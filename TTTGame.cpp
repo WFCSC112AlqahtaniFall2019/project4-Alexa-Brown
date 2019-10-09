@@ -11,7 +11,6 @@
 using namespace std;
 
 int main() {
-TicTacToe variable; //to use to reach the class TicTacToe
 int row=0;
 int column=0;
 int numPlayers;
@@ -19,13 +18,13 @@ char playAgain = 'y';
 
 
 while(playAgain != 'q') {
-
+    TicTacToe variable;//to use to reach the class TicTacToe
 variable.initializeBoard(); //to reset the board if the player wants to play again
 cout << " Welcome to TicTacToe! How many players would you like to play with? (1 or 2)" << endl;
     cin >> numPlayers;
 
 
-if (numPlayers != 1 && numPlayers != 2) {
+if (numPlayers != 1 && numPlayers != 2) { //if they don't enter 1 or 2
     cout << "Please try again and enter either 1 or 2 players." << endl;
     return 0;
 }
@@ -46,7 +45,7 @@ else if (numPlayers == 2) {
         row--;
         cin >> column ;
         column--;
-        if (!variable.placeMark(row, column)) {
+        if (!variable.placeMark(row, column)) { //if the numbers have already been chosen or if it is not an option
             cout << "Please pick a row and column number that are within the bounds. Pick 1, 2, or 3." << endl;
             cin >> row;
             cin >> column;
@@ -56,10 +55,7 @@ else if (numPlayers == 2) {
         variable.placeMark(row, column);
         variable.printBoard();
         variable.changePlayer();
-        if (variable.checkForWin()) {
-            break;
-        }
-        if (variable.isBoardFull()) {
+        if (variable.checkForWin() || variable.isBoardFull()) {
             break;
         }
 
@@ -80,16 +76,18 @@ else if (numPlayers == 2) {
         variable.placeMark(row, column);
         variable.printBoard();
         variable.changePlayer();
-        if (variable.isBoardFull())
-            break;
-     if (variable.checkForWin()) {
-          break;
-      }
 }
     if (variable.checkForWin()) {
         variable.changePlayer(); //since we switch players at the end of the while loop, we must switch back for the winner
         cout << "Player " << variable.getCurrentPlayerNumber() << " wins!" << endl;
         cout << "Do you want to play again? Input 'y' to play again or 'q' to quit." << endl;
+        cin >> playAgain;
+        variable.changePlayer();
+    }
+    if (variable.isBoardFull() && !variable.checkForWin()){
+        cout << "There is a tie!" << endl;
+        cout << "Do you want to play again? Input 'y' to play again or 'q' to quit." << endl;
+        variable.changePlayer();
         cin >> playAgain;
     }
 }//end of if players = 2
@@ -97,6 +95,7 @@ else if (numPlayers == 2) {
 
     //one user is a player and the computer is a player
 else if (numPlayers == 1) {
+    TicTacToe variable;//to use to reach the class TicTacToe
     cout << endl;
     cout << "User, you are player 1 and the computer is player 2." << endl;
     cout << endl;
@@ -146,6 +145,7 @@ else if (numPlayers == 1) {
         variable.changePlayer(); //since we switch players at the end of the while loop, we must switch back for the winner
         cout << "Player " << variable.getCurrentPlayerNumber() << " wins!" << endl;
         cout << "Do you want to play again? Input 'y' to play again or 'q' to quit." << endl;
+        variable.changePlayer();
         cin >> playAgain;
     }
     if (variable.isBoardFull() && !variable.checkForWin()){
@@ -155,11 +155,11 @@ else if (numPlayers == 1) {
     }
 
     } //end of if players = 1
-} //while loop allows the game to go on as long as the user wants it to go on
+} //while loop allows the game to go on as long as the user wants it to go on, finishes when they input 'q' when prompted
 
 cout << "Thank you for playing!" << endl;
 
-// FINISH ME
+
 
 return 0; //end of main function
 }
